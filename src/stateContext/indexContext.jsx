@@ -4,10 +4,8 @@ import { useReducer, createContext } from "react";
 import { initialState } from './initialState'
 import { reducer } from './reducers'
 
-
 export const AppContext = createContext(null)
 
-// console.log(initialState)
 export const AppContextProvider = props => {
     const [state, dispatch] = useReducer(reducer, initialState);
 

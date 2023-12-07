@@ -28,7 +28,7 @@ export default function PlayerControlButtons() {
         playing: true,
         urlIndex: 0
     })
-    const changeUrlIndex = direction => (event) => {
+    const changeUrlIndex = direction => () => {
         const lastIdx = stateUrls.length - 1
         // const newIdx = 0
         switch (direction) {
