@@ -3,7 +3,6 @@ import { useContext } from 'react'
 import { AppContext } from '../../stateContext/indexContext.jsx'
 import * as types from '../../stateContext/types'
 import ReactPlayer from 'react-player'
-import { notify } from 'react-notify-toast'
 import PlayerControlButtons from './PlayerControlButtons'
 
 export default function PlayerDr(props) {
@@ -28,7 +27,7 @@ export default function PlayerDr(props) {
                 })
             }
 
-            default: notify.show("Tell me what to do", 'danger')
+            default: toast.success("Tell me what to do")
             // return setState({ ...state, urlIndex: direction })
         }
     }

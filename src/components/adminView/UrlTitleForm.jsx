@@ -4,7 +4,8 @@ import { TextField, Typography, Divider } from '@mui/material'
 import { UpdateFieldForm } from './UpdateFieldForm'
 // import { UPDATE_TITLE_URL } from '../../graphql/Mutations'
 import { setTitleUrl, setTitleGenres, setTitleInstruments } from '../../index'
-import { notify } from 'react-notify-toast'
+import toast from 'react-hot-toast'
+
 
 
 export default function UrlTitleForm(props) {
@@ -37,13 +38,13 @@ export default function UrlTitleForm(props) {
     setTitleUrl(variableObj)
       .then(result => {
         const newUrl = result[0].url
-        notify.show(`Title url is https://youtu.be/${newUrl} now`, 'success')
+        toast.success(`Title url is https://youtu.be/${newUrl} now`)
         console.log(newUrl)
         // h4String[0] += " url updated"
         // // url = newUrl
         setUpdatedUrl(newUrl)
       }).catch(error => {
-        notify.show(error.message, "error")
+        toast.error(error.message)
         console.log(error.message)
       })
   }

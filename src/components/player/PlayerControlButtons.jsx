@@ -5,10 +5,6 @@ import SkipNextIcon from '@mui/icons-material/SkipNext'
 import { useState, useContext } from 'react'
 import { AppContext } from '../../stateContext/indexContext'
 import * as types from '../../stateContext/types'
-import { notify } from 'react-notify-toast'
-
-
-
 
 // const useStyles = makeStyles({
 //     controls:,
@@ -45,7 +41,11 @@ export default function PlayerControlButtons() {
                 })
             }
 
-            default: notify.show("Tell me what to do", 'danger')
+            default: toast.custom("Tell me what to do", {
+                style: {
+                    backgroundColor: blue[50]
+                }
+            })
             // return setState({ ...state, urlIndex: direction })
         }
     }
