@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { AppContext } from './stateContext/indexContext.jsx'
 import { app } from './index'
 import { SET_USER_ID } from './stateContext/types'
-
+import CustomToaster from './toaster/customToaster.jsx'
 
 const theme = createTheme({
   breakpoints: {
@@ -74,6 +74,7 @@ function App() {
 
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <CustomToaster />
         <Routes />
       </ThemeProvider>
     </BrowserRouter>

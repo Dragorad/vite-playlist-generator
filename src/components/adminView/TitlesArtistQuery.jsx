@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/client'
 // import { TextField, Typography } from '@mui/material'
 import UrlTitleForm from './UrlTitleForm'
-import Notifications from 'react-notify-toast'
+
 
 const TITLE_DATA = gql`
   query GetTitleData {

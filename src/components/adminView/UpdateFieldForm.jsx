@@ -1,9 +1,5 @@
 import {useState} from 'react'
 import { TextField, Typography } from '@mui/material'
-import { notify } from 'react-notify-toast';
-
-
-// props - nameStr   updateMutation
 
 const formStyles = {
     display: 'flex',
@@ -76,7 +72,7 @@ export function UpdateFieldForm(props) {
                         console.log(result)
                         //     const { genres, tags } = result
                     }).catch(error => {
-                        notify.show(error.message, "error")
+                        toast.error(error.message)
                         console.log(error.message)
                     })
                 // handleUpdateGenres(valueStr)

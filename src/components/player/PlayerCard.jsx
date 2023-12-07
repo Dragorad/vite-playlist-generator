@@ -16,10 +16,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { AppContext } from '../../stateContext/indexContext'
 import * as types from '../../stateContext/types'
 import ReactPlayer from 'react-player'
-import { notify } from 'react-notify-toast'
-// import PlayerControlButtons from './PlayerControlButtons'
-// import { maxWidth, minWidth } from '@material-ui/system'
-
 
 export default function PlayerCard(props) {
   const queryMatches = useMediaQuery('(min-width: 600px)')
@@ -79,7 +75,7 @@ export default function PlayerCard(props) {
         })
       }
 
-      default: notify.show("Tell me what to do", 'danger')
+      default: toast.success("Tell me what to do")
       // return setState({ ...state, urlIndex: direction })
     }
   }

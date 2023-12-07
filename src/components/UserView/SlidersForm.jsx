@@ -7,8 +7,7 @@ import { Button, Divider, Grid, Grow, Typography } from '@mui/material'
 import { descriptorsList } from '../../workers/descriptorsList'
 import { ButtonsGroupMultiple } from './GenreButton'
 import { app, getNewPlayList } from '../../index'
-import Notifications, { notify } from 'react-notify-toast'
-import { notifyOptions } from './notifyOptions'
+import toast from 'react-hot-toast'
 
 
 const stateObj = {
@@ -69,17 +68,15 @@ export default function SlidersForm() {
   const onSubmit = async (e) => {
     e.preventDefault()
     !app.currentUser ?
-      notify.show('You have to log in', 'error', 7000)
+      toast.error('You have to log in')
       : !appState.genresArr.length ?
-        notify.show('You have to select at last one genre button or select all genres', "error", 7000)
+        toast.error('You have to select at last one genre button or select all genres')
         : setNewPlaylist(customInput)
   }
 
   return (
     <div style={{ padding: '1rem', margin: 'auto' }}>
-      <Notifications
-        options={notifyOptions} />
-      <Grid container
+         <Grid container
         // xs={12}
         // lg={10}
         // xl={6}
