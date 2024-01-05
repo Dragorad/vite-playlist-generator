@@ -16,7 +16,7 @@ function CustomToaster() {
                 duration: 6000,
                 error: {
                     style: {
-                        backgroundColor: red[50]
+                        backgroundColor: red[100]
                     }
                 }
             }}

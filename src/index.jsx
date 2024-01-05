@@ -101,14 +101,15 @@ const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
-
-  <AppContextProvider >
-    <ApolloProvider client={client}>
-      <Suspense fallback={ImgLoader}>
-        <App />
-      </Suspense>
-    </ApolloProvider>
-  </AppContextProvider>
+  <React.StrictMode>
+    <AppContextProvider >
+      <ApolloProvider client={client}>
+        <Suspense fallback={ImgLoader}>
+          <App />
+        </Suspense>
+      </ApolloProvider>
+    </AppContextProvider>
+  </React.StrictMode>
 )
 
 // If you want your app to work offline and load faster, you can change

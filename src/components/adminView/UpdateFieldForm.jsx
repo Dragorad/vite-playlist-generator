@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { TextField, Typography } from '@mui/material'
 
 const formStyles = {
@@ -82,14 +82,14 @@ export function UpdateFieldForm(props) {
             }}>
             <Typography component={"h4"} align={"left"} gutterBottom={true}>{h4String}</Typography>
             <TextField id={nameStr} label={nameStr} name={nameStr}
-                value={valueStr} placeholder={nameStr}
+                value={valueStr}
+                placeholder={nameStr}
                 onChange={event => {
                     event.preventDefault()
                     let newValueStr = event.target.value
                     // console.log(newValueStr)
                     setValueStr(newValueStr)
                 }}
-                value={valueStr}
                 // required={true}
                 variant={'outlined'}
                 helperText={`Set ${nameStr}`}
