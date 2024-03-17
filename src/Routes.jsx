@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import TestComponentV5 from './components/adminView/TestComponentV5'
 // import PersistentDrawerLeft from './components/navbar/PersistDrawer'
-import { TitlesArtistQuery } from './components/adminView/TitlesArtistQuery'
+// import { TitlesArtistQuery } from './components/adminView/TitlesArtistQuery'
 import UrlTitleForm from './components/adminView/UrlTitleForm'
 
 
@@ -14,7 +14,7 @@ const Routes = (props) => (
   <Suspense fallback={ImgLoader} >
     <Switch>
       <Route exact path='/' component={LazyPersistedtDrawer} />
-      <Route exact path='/admin' component={TitlesArtistQuery} />
+      {/* <Route exact path='/admin' component={TitlesArtistQuery} /> */}
       <Route exact path='/test' component={TestComponentV5} />
       {/* <Route exact path='/login' component={UserForm} />
     <Route exact path='/signedIn' component={ControlForm} /> */}

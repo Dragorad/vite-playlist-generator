@@ -2,9 +2,9 @@ import React, { Suspense, lazy, } from 'react'
 import { createRoot } from 'react-dom/client'
 import { AppContextProvider, } from './stateContext/indexContext'
 import './index.css'
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { ApolloProvider } from "@apollo/client";
+// import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+// import { setContext } from "@apollo/client/link/context";
+// import { ApolloProvider } from "@apollo/client";
 import * as serviceWorker from './serviceWorker'
 import * as RealmWeb from "realm-web"
 import { APP_ID } from './credential/AppId';
@@ -32,40 +32,40 @@ catch (err) {
   console.error("Failed to log in", err);
 }
 // Add an Authorization header with a valid user access token to all GraphQL requests
-const authorizationHeaderLink = setContext(async (_, { headers }) => {
-  if (app.currentUser) {
-    // Refreshing custom data also refreshes the access token
-    await app.currentUser.refreshCustomData();
-  } else {
-    // If no user is logged in, log in an anonymous user
+// const authorizationHeaderLink = setContext(async (_, { headers }) => {
+//   if (app.currentUser) {
+//     // Refreshing custom data also refreshes the access token
+//     await app.currentUser.refreshCustomData();
+//   } else {
+//     // If no user is logged in, log in an anonymous user
 
-    // await app.logIn(RealmWeb.Credentials.anonymous());
-    console.log('from index.js', app.user)
-  }
-  // Get a valid access token for the current user
-  const { accessToken } = app.currentUser;
-  console.log("currentUser", accessToken, app.currentUser);
+//     // await app.logIn(RealmWeb.Credentials.anonymous());
+//     console.log('from index.js', app.user)
+//   }
+//   // Get a valid access token for the current user
+//   const { accessToken } = app.currentUser;
+//   console.log("currentUser", accessToken, app.currentUser);
 
-  // Set the Authorization header, preserving any other headers
-  return {
-    headers: {
-      ...headers,
+//   // Set the Authorization header, preserving any other headers
+//   return {
+//     headers: {
+//       ...headers,
 
-      Authorization: `Bearer ${accessToken}`
+//       Authorization: `Bearer ${accessToken}`
 
-    }
-  };
-});
+//     }
+//   };
+// });
 
-// Construct a new Apollo HttpLink that connects to your app's GraphQL endpoint
-const graphql_url = `https://realm.mongodb.com/api/client/v2.0/app/${APP_ID}/graphql`;
-const httpLink = new HttpLink({ uri: graphql_url });
+// // Construct a new Apollo HttpLink that connects to your app's GraphQL endpoint
+// const graphql_url = `https://realm.mongodb.com/api/client/v2.0/app/${APP_ID}/graphql`;
+// const httpLink = new HttpLink({ uri: graphql_url });
 
-// Construct a new Apollo client with the links we just defined
-const client = new ApolloClient({
-  link: authorizationHeaderLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
+// // Construct a new Apollo client with the links we just defined
+// const client = new ApolloClient({
+//   link: authorizationHeaderLink.concat(httpLink),
+//   cache: new InMemoryCache()
+// });
 
 export const getNewPlayList = async (inputObj) => {
   const playlist = await app.currentUser.callFunction('generatePlaylist', inputObj)
@@ -103,11 +103,11 @@ const root = createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <AppContextProvider >
-      <ApolloProvider client={client}>
+      {/* <ApolloProvider client={client}> */}
         <Suspense fallback={ImgLoader}>
           <App />
         </Suspense>
-      </ApolloProvider>
+      {/* </ApolloProvider> */}
     </AppContextProvider>
   </React.StrictMode>
 )

@@ -1,0 +1,7 @@
+{
+  "name": "vite-playlist-generator",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
