@@ -29,7 +29,8 @@ export function ItemsList(props) {
         <div className={classes.root}>
             <List component="nav" aria-label={props.title}>
                 {props.arr.map((elem, index) => (
-                    <ListItem
+                    <ListItem 
+                    key={elem + index}
                         button
                         selected={selectedIndex === 0}
                         onClick={(event) => handleListItemClick(event, 0)}

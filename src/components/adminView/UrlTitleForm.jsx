@@ -88,6 +88,7 @@ export default function UrlTitleForm(props) {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {['instruments solo', 'instruments oblig'].map(nameStr =>
               <UpdateFieldForm
+                key={nameStr}
                 onSubmit={setTitleInstruments}
                 titleMBID={titleMBID}
                 nameStr={nameStr}
