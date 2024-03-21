@@ -11,6 +11,7 @@ function handleClick(event) {
 export default function TestComponentV5() {
   return (
     <div role="presentation" onClick={handleClick}>
+      <p>Admin view</p>
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
           MUI

@@ -146,7 +146,7 @@ export default function SlidersForm() {
                 onChange={onSliderChange(descriptor)}
                 onChangeComitted={handleCommit(descriptor)}
                 valueLabelFormat={descriptor === "Tempo" ?
-                  state.Tempo.valueLabelFormat : (x) => x = x}
+                state.Tempo.valueLabelFormat : (x) => x = x}
               />
             ))}
           </Grid>

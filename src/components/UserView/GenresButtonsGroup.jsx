@@ -34,21 +34,22 @@ export default function GenresButtonsGroup() {
             payload: []
         })
     }
+    const styles = {
+        margin: '2% 0',
+        color: 'white',
+        backgroundColor: blueGrey[400],
+        '&:hover': {
+            backgroundColor: blueGrey[600],
+        },
+        '&:active': {
+            backgroundColor: '#531B1B',
+            color: 'white'
+        }
+    }
     return (
         <>
             <ToggleButton
-                sx={{
-                    margin: '2% 0',
-                    color: 'white',
-                    backgroundColor: blueGrey[400],
-                    '&:hover': {
-                        backgroundColor: blueGrey[600],
-                    },
-                    '&:active': {
-                        backgroundColor: blueGrey[900],
-                        color: 'red'
-                    }
-                }}
+                sx={styles}
                 onClick={toggleAllGenres}
                 fullWidth  >
                 Select All Genres
@@ -58,11 +59,12 @@ export default function GenresButtonsGroup() {
                 selected={true} sm={6}
             />
             <ToggleButton
-                style={{
-                    margin: '2% 0',
-                    backgroundColor: blueGrey[400],
-                    color: 'white'
-                }}
+                sx={styles}
+                // style={{
+                //     margin: '2% 0',
+                //     backgroundColor: blueGrey[400],
+                //     color: 'white'
+                // }}
                 variant="outlined"
                 onClick={deselectAllGenres}
                 // type='submit'
