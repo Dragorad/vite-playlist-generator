@@ -21,7 +21,7 @@
     "@capacitor/status-bar": "5.0.7",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.3",
+    "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.14.3",
     "babytube": "^1.4.7",
     "graphql": "^16.7.1",
