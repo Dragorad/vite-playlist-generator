@@ -29,7 +29,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-player": "^2.12.0",
+    "react-player": "^2.15.1",
     "react-router-dom": "^5.3.4",
     "realm-web": "^2.0.0",
     "vercel": "^33.6.1"
