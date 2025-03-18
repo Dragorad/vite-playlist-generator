@@ -18,7 +18,7 @@ const Routes = (props) => (
       <Route exact path='/test' component={TestComponentV5} />
       {/* <Route exact path='/login' component={UserForm} />
     <Route exact path='/signedIn' component={ControlForm} /> */}
-      <Route exact path='/genres' component={UrlTitleForm} />
+      {/* <Route exact path='/genres' component={UrlTitleForm} /> */}
       <Redirect from='/index' to='/' />
       <Redirect from='/home' to='/' />
       {/* <Route path='/work-pane' component={WorkPaneRedux} /> */}
