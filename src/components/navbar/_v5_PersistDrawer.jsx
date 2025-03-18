@@ -174,12 +174,12 @@ export default function PersistentDrawerLeft() {
       <Main >
         <CssBaseline />
         <Container fluid maxWidth='xl'>
-          <Grid container xs={12} spacing={1} direction='row'
+          <Grid container item xs={12} spacing={1} direction='row'
             sx={{ mt: '2%' }}
           >
-            <Grid item sx={12} sm={6} md={4} lg={4}// genres buttons and sliders form
+            <Grid  item sx={12} sm={6} md={4} lg={4}// genres buttons and sliders form
               // style={{ border: '1px solid red' }}
-              direction='row'>
+              >
               <GenresButtonsGroup />
               <SlidersForm />
             </Grid>
@@ -196,10 +196,10 @@ export default function PersistentDrawerLeft() {
                 sx={{ mt: '1%', w: '98%' }}
               >
 
-                <Grid xs={12} md={7}>
+                <Grid item xs={12} md={7}>
                   <PlayerDr />
                 </Grid>
-                <Grid xs={12} md={5} //titlesList
+                <Grid item xs={12} md={5} //titlesList
                 >
                   <TitlesList />
 

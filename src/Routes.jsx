@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import TestComponentV5 from './components/adminView/TestComponentV5'
 // import PersistentDrawerLeft from './components/navbar/PersistDrawer'
 // import { TitlesArtistQuery } from './components/adminView/TitlesArtistQuery'
-import UrlTitleForm from './components/adminView/UrlTitleForm'
+// import UrlTitleForm from './components/adminView/UrlTitleForm'
 
 
 export const ImgLoader = <img src="music-player-circle-start.svg" alt='Loading' />
