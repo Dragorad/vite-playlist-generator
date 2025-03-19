@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:user": "vite --mode user",
-    "build:user": "vite build --mode user",
+    "dev:admin": "vite --mode admin",
+    "build": "vite build --mode user",
     "build:admin": "env-cmd -f .env.admin vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
