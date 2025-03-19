@@ -13,6 +13,12 @@ export default defineConfig(({ command, mode }) => {
     define: {
       'import.meta.env': JSON.stringify(env)
     },
-    envPrefix: 'VITE_'
+    envPrefix: 'VITE_',
+    server: {
+      headers: {
+        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+        'Cross-Origin-Embedder-Policy': 'unsafe-none'
+      }
+    }
   }
 })
