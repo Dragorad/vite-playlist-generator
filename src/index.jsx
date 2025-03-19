@@ -24,10 +24,6 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-console.log('"from index.js', auth) 
-
-
 const App = lazy(() => import('./App'));
 
 const ImgLoader = () => (

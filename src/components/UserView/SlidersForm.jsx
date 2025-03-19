@@ -8,6 +8,7 @@ import { descriptorsList } from '../../workers/descriptorsList'
 import { ButtonsGroupMultiple } from './GenreButton'
 import { app } from '../../index'
 import toast from 'react-hot-toast'
+import { generatePlaylist } from '../../workers/firebaseQueryWorker'
 
 
 const stateObj = {
@@ -37,26 +38,26 @@ export default function SlidersForm() {
     spectral_centroid: state.Brightness.value,
     genresArr: includedGenres
   }
-  // const setNewPlaylist = customInput => {
-  //   console.log(customInput)
-  //   getNewPlayList(customInput)
-  //     .then(playlist => {
-  //       console.log(playlist)
-  //       dispatch({
-  //         type: types.SET_NEW_PLAYLIST,
-  //         payload: playlist
-  //       })
-  //       dispatch({
-  //         type: types.SET_URL_IDX,
-  //         payload: 0
-  //       })
-  //       dispatch({
-  //         type: types.SET_PLAYING,
-  //         payload: true
-  //       })
-  //       console.log(appState.playlist)
-  //     })
-  // }
+  const setNewPlaylist = customInput => {
+    console.log(customInput)
+    generatePlaylist(customInput)
+      .then(playlist => {
+        console.log(playlist)
+        dispatch({
+          type: types.SET_NEW_PLAYLIST,
+          payload: playlist
+        })
+        dispatch({
+          type: types.SET_URL_IDX,
+          payload: 0
+        })
+        dispatch({
+          type: types.SET_PLAYING,
+          payload: true
+        })
+        console.log(appState.playlist)
+      })
+  }
 
   const onSliderChange = name => (ev, value) => {
     setState({ ...state, [name]: { ...state[name], value: value } })
@@ -67,12 +68,12 @@ export default function SlidersForm() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    !app.currentUser ?
+    !appState.userId ?
       toast.error('You have to log in')
       : !appState.genresArr.length ?
         toast.error('You have to select at last one genre button or select all genres')
         : ''
-        // setNewPlaylist(customInput)
+        setNewPlaylist(customInput)
   }
 
   return (

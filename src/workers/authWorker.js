@@ -35,7 +35,7 @@ export const signInNoCredentials = async ()  => {
     console.log('Attempting anonymous sign-in');
     console.log('Auth instance:', auth);
     const userCredential = await signInAnonymously(auth);
-    console.log("Logged in anonymously:", userCredential.user);
+    console.log("Logged in anonymously:");
     return { success: true, user: userCredential.user };
   } catch (error) {
     console.error("Error logging in anonymously:", error);

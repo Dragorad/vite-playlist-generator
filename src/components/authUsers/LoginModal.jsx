@@ -45,7 +45,7 @@ export default function LoginInfoBox() {
         showPassword: false,
         signIn: true
     })
-console.log(signInNoCredentials)
+
     const handleModalOpen = () => setOpen(true)
     const handleModalClose = () => setOpen(false)
 
