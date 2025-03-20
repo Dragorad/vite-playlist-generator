@@ -9,7 +9,7 @@ import { getFirestore } from 'firebase/firestore';
 
 // Firebase конфигурация
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_USER_FIREBASE_API_KEY,
+  apiKey: 'AIzaSyDPJwgJoUmBUWhYW7vL5DisG1fb-tpWKJI',
   authDomain: import.meta.env.VITE_USER_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_USER_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_USER_FIREBASE_STORAGE_BUCKET,
