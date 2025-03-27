@@ -4,8 +4,7 @@ import { AppContextProvider } from './stateContext/indexContext';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { initializeApp } from 'firebase/app';
-import { getAuth} from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+
 
 // Firebase конфигурация
 const firebaseConfig = {
@@ -21,8 +20,6 @@ console.log(firebaseConfig);
 
 // Инициализиране на Firebase
 export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-const db = getFirestore(app);
 
 const App = lazy(() => import('./App'));
 
@@ -36,10 +33,10 @@ const root = createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <AppContextProvider>
-      <Suspense fallback={<ImgLoader />}>
+            <Suspense fallback={<ImgLoader />}>
         <App />
       </Suspense>
-    </AppContextProvider>
+          </AppContextProvider>
   </React.StrictMode>
 );
 
