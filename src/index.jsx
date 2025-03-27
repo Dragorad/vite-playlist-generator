@@ -16,7 +16,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_USER_FIREBASE_APP_ID
 };
 
-console.log(firebaseConfig);
+
 
 // Инициализиране на Firebase
 export const app = initializeApp(firebaseConfig);

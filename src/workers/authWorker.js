@@ -1,22 +1,24 @@
-import { 
-  GoogleAuthProvider, 
+import toast from "react-hot-toast";
+
+import {
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInAnonymously,
   signInWithPopup,
-  getAuth
+  getAuth,
 } from "firebase/auth";
 
-import { app } from '../index'; // Импортираме само app
+import { app } from "../index"; // Импортираме само app
 
 export const signOut = async () => {
   try {
     const auth = getAuth(app);
     await auth.signOut();
-    console.log("Logged out");
+    toast.success("Logged out");
     return { success: true };
   } catch (error) {
-    console.error("Error logging out:", error);
+    toast.error("Error logging out:", error);
     return { success: false, error };
   }
 };
@@ -25,10 +27,10 @@ export const signInNoCredentials = async () => {
   try {
     const auth = getAuth(app);
     const userCredential = await signInAnonymously(auth);
-    console.log("Logged in anonymously:", userCredential.user);
+    toast.success("Logged in anonymously");
     return { success: true, user: userCredential.user };
   } catch (error) {
-    console.error("Error logging in anonymously:", error);
+    toast.error("Error logging in anonymously:", error);
     return { success: false, error };
   }
 };
@@ -41,10 +43,10 @@ export const signUpWithEmail = async (email, password) => {
       email,
       password
     );
-    console.log("Signed up with email:", userCredential.user);
+    toast.success("Signed up with email:", userCredential.user.email);
     return { success: true, user: userCredential.user };
   } catch (error) {
-    console.error("Error signing up with email:", error);
+    toast.error("Error signing up with email:", error);
     return { success: false, error };
   }
 };
@@ -57,7 +59,7 @@ export const signInWithEmail = async (email, password) => {
       email,
       password
     );
-    console.log("Logged in with email:", userCredential.user);
+    toast.success(`Welcome back, ${userCredential.user.email}`);
     return { success: true, user: userCredential.user };
   } catch (error) {
     console.error("Error logging in with email:", error);
@@ -70,10 +72,10 @@ export const signInWithGoogle = async () => {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
-    console.log("Logged in with Google:", result.user);
+    toast.success(`Logged in with Google:${result.user.email}`);
     return { success: true, user: result.user };
   } catch (error) {
-    console.error("Error logging in with Google:", error);
+    toast.error("Error logging in with Google:", error);
     return { success: false, error };
   }
 };
