@@ -199,7 +199,6 @@ export default function LoginInfoBox() {
               onChange={handleInputChange("userName")}
               variant="outlined"
               InputProps={{
-                
                 endAdornment: (
                   <InputAdornment position="end">
                     <MailIcon />
@@ -216,7 +215,6 @@ export default function LoginInfoBox() {
                 value={state.passWord}
                 onChange={handleInputChange("passWord")}
                 name="passWord"
-                inputProps={{ autoComplete: "off" }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -244,7 +242,6 @@ export default function LoginInfoBox() {
                 variant="outlined"
                 type={state.showPassword ? "text" : "password"}
                 InputProps={{
-                  autoComplete: "off",
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
