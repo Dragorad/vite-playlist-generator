@@ -10,7 +10,7 @@ export const ImgLoader = <img src="music-player-circle-start.svg" alt='Loading' 
 
 const LazyPersistedtDrawer = lazy(() => import('./components/navbar/_v5_PersistDrawer'))
 
-const Routes = (props) => (
+const Routes = () => (
   <Suspense fallback={ImgLoader} >
     <Switch>
       <Route exact path='/' component={LazyPersistedtDrawer} />

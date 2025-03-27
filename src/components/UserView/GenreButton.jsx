@@ -1,16 +1,16 @@
-import { useContext } from 'react'
-import ToggleButton from '@mui/material/ToggleButton'
+import { useContext, lazy } from 'react'
 import { Grid, Paper } from '@mui/material'
 import { blueGrey } from '@mui/material/colors'
 import { AppContext } from '../../stateContext/indexContext';
 import { descriptorsList } from '../../workers/descriptorsList'
 
+const ToggleButton = lazy(() => import('@mui/material/ToggleButton'))
 
-export function ButtonsGroupMultiple(props) {
+export function  ButtonsGroupMultiple(props) {
   const [appState, dispatch] = useContext(AppContext)
   const inputArr = props.inputArr
 
-  const onButtonClick = name => (event) => {
+  const onButtonClick = name => () => {
     const arrName = descriptorsList.includes(name) ? 'descriptorsArr' : 'genresArr'
     const newArr = appState[arrName].includes(name) ?
       appState[arrName].filter(el => el !== name)

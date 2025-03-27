@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, lazy } from 'react'
 import Container from '@mui/material/Container'
-import Drawer from '@mui/material/Drawer'
+
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -8,7 +8,7 @@ import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
+// import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
@@ -21,18 +21,22 @@ import ListItemText from '@mui/material/ListItemText'
 import ShareIcon from '@mui/icons-material/Share'
 import QueueMusicIcon from '@mui/icons-material/QueueMusic'
 import SettingsIcon from '@mui/icons-material/Settings'
-import PermIdentityIcon from '@mui/icons-material/PermIdentity'
+
+const PermIdentityIcon = lazy(() => import('@mui/icons-material/PermIdentity'))
+
 // import Paper from '@mui/material/Paper'
-import SlidersForm from '../UserView/SlidersForm'
 import Grid from '@mui/material/Grid'
-// import { blue } from '@mui/material/colors'
-import InfoBox from './InfoBox'
-import LoginInfoBox from '../authUsers/LoginModal'
-import GenresButtonsGroup from '../UserView/GenresButtonsGroup'
-import TitlesList from '../player/TitlesList'
-import PlayerDr from '../player/PlayerDr'
 import { AppContext } from '../../stateContext/indexContext'
 
+
+const SlidersForm = lazy(() => import('../UserView/SlidersForm'))
+const TitlesList = lazy(() => import('../player/TitlesList'))
+const PlayerDr = lazy(() => import('../player/PlayerDr')) 
+
+const InfoBox = lazy( () => import ('../navbar/InfoBox'))
+const Drawer = lazy(() => import('@mui/material/Drawer'))
+const LoginInfoBox = lazy(() => import('../authUsers/LoginModal'))
+const GenresButtonsGroup = lazy(() => import('../UserView/GenresButtonsGroup'))
 
 const drawerWidth = 240
 
@@ -151,7 +155,7 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+      
         <List>
           {['Following', 'Playlists', 'Starred', 'Share'].map((text, index) => (
             <ListItem button key={text}>
@@ -160,7 +164,7 @@ export default function PersistentDrawerLeft() {
             </ListItem>
           ))}
         </List>
-        <Divider />
+      
         <List>
           {['Login', 'Preferences'].map((text, index) => (
             <ListItem button key={text}>
