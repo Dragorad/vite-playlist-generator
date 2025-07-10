@@ -1,14 +1,15 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, lazy} from 'react'
 import { AppContext } from '../../stateContext/indexContext'
-import * as types from '../../stateContext/types'
-import SliderMUI from './SliderMUI'
-import Slider from '@mui/material/Slider'
-import { Button, Divider, Grid, Grow, Typography } from '@mui/material'
-import { descriptorsList } from '../../workers/descriptorsList'
+import { SET_NEW_PLAYLIST, SET_URL_IDX, SET_PLAYING } from '../../stateContext/types' 
 import { ButtonsGroupMultiple } from './GenreButton'
-import { app, getNewPlayList } from '../../index'
 import toast from 'react-hot-toast'
+import { descriptorsList } from '../../workers/descriptorsList' 
+import { generatePlaylist } from '../../workers/firebaseQueryWorker'
 
+const SliderMUI = lazy(() => import('./SliderMUI'))
+const Button = lazy(() => import('@mui/material/Button'))
+const Grid = lazy(() => import('@mui/material/Grid'))
+const Typography = lazy(() => import('@mui/material/Typography'))
 
 const stateObj = {
   randomInt: { min: 120, max: 180, step: 5, value: 180 },
@@ -39,19 +40,20 @@ export default function SlidersForm() {
   }
   const setNewPlaylist = customInput => {
     console.log(customInput)
-    getNewPlayList(customInput)
+    generatePlaylist(customInput)
       .then(playlist => {
+        toast.success('Playlist generated')
         console.log(playlist)
         dispatch({
-          type: types.SET_NEW_PLAYLIST,
+          type: SET_NEW_PLAYLIST,
           payload: playlist
         })
         dispatch({
-          type: types.SET_URL_IDX,
+          type: SET_URL_IDX,
           payload: 0
         })
         dispatch({
-          type: types.SET_PLAYING,
+          type: SET_PLAYING,
           payload: true
         })
         console.log(appState.playlist)
@@ -67,11 +69,12 @@ export default function SlidersForm() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    !app.currentUser ?
+    !appState.userId ?
       toast.error('You have to log in')
       : !appState.genresArr.length ?
         toast.error('You have to select at last one genre button or select all genres')
-        : setNewPlaylist(customInput)
+        : ''
+        setNewPlaylist(customInput)
   }
 
   return (
