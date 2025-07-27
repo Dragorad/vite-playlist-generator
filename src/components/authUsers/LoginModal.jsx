@@ -157,16 +157,7 @@ export default function LoginInfoBox() {
     }
     return (
         <div>
-            {appState.userId === '' ? <Button
-                variant="outlined"
-                size='small'
-                color='inherit'
-                backgroundColor={'#1b304a'}
-                fontSize='0.8rem'
-                onClick={handleModalOpen}> Login/SignUp </Button> :
-                <Button name='LogOut' onClick={logOut} variant='outlined' size='small'
-                    style={{ backgroundColor: grey[400], marginBottom: '2%', whiteSpace: 'nowrap' }} >
-                    Log Out</Button>}
+            {null}
 
             <Dialog
                 aria-labelledby="simple-modal-title"
