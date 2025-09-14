@@ -6,8 +6,7 @@ export const app = new RealmWeb.App({
   baseUrl: "https://services.cloud.mongodb.com"
 });
 
-console.log('🔗 Atlas App ID:', APP_ID);
-console.log('📋 ENV Variable:', import.meta.env.VITE_REALM_APP_ID);
+
 
 
 
