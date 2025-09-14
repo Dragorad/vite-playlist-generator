@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Начална страница -->
   <url>
-    <loc>https://dragora-playlist-generator.vercel.app/</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://dragora-playlist-generator-vite.vercel.app/</loc>
+    <lastmod>2024-02-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- АКО ИМАТЕ ДРУГИ СТРАНИЦИ, ДОБАВЕТЕ ГИ ТУК -->
+  <!-- 
+  Пример за друга страница (например /about):
+  <url>
+    <loc>https://dragora-playlist-generator-vite.vercel.app/about</loc>
+    <lastmod>2024-02-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  -->
+
 </urlset>
