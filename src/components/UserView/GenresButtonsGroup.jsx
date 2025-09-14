@@ -49,6 +49,7 @@ export default function GenresButtonsGroup() {
     return (
         <>
             <ToggleButton
+                value="select-all"
                 sx={styles}
                 onClick={toggleAllGenres}
                 fullWidth  >
@@ -59,6 +60,7 @@ export default function GenresButtonsGroup() {
                 selected={true} sm={6}
             />
             <ToggleButton
+                value="deselect-all"
                 sx={styles}
                 // style={{
                 //     margin: '2% 0',
