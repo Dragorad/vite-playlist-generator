@@ -1,2 +1,1 @@
-
-export  const APP_ID = "dragoraselectortest-sveyc"
+export const APP_ID = import.meta.env.VITE_REALM_APP_ID || "dragoraselectortest-sveyc";
