@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import Routes from './Routes'
 import './App.css'
@@ -55,18 +55,16 @@ const theme = createTheme({
 
 function App() {
   const [appState, dispatch] = useContext(AppContext)
-  // console.log(app.currentUser)
   const userId = app.currentUser ? app.currentUser.id : ''
 
-
-  // console.log('appstateUser', app.currentUser.id)
-
-  if (appState.userId === '' && app.currentUser) {
-    dispatch({
-      type: SET_USER_ID,
-      payload: userId
-    })
-  }
+  useEffect(() => {
+    if (appState.userId === '' && app.currentUser) {
+      dispatch({
+        type: SET_USER_ID,
+        payload: userId
+      })
+    }
+  }, [appState.userId, userId, dispatch])
 
 
 
