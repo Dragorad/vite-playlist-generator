@@ -1,48 +1,22 @@
-import * as RealmWeb from "realm-web";
-import { APP_ID } from '../credential/AppId';
-
-export const app = new RealmWeb.App({
-  id: APP_ID,
-  baseUrl: "https://services.cloud.mongodb.com"
-});
-
-
-
-
+// Mock auth service for testing without Firebase
+export const app = {
+  currentUser: {
+    id: 'mock-user',
+    isLoggedIn: true
+  }
+};
 
 export const loginAnonymous = async () => {
-  const credentials = RealmWeb.Credentials.anonymous();
-  try {
-    const user = await app.logIn(credentials);
-    console.log('Logged anonymous', user.id);
-    return user;
-  } catch (err) {
-    console.error("Failed to log in anonymously", err);
-    throw err;
-  }
+  console.log('Mock anonymous login');
+  return { id: 'mock-user', isLoggedIn: true };
 };
 
 export const loginWithEmail = async (email, password) => {
-  const credentials = RealmWeb.Credentials.emailPassword(email, password);
-  try {
-    const user = await app.logIn(credentials);
-    return user;
-  } catch (err) {
-    console.error("Failed to log in with email", err);
-    throw err;
-  }
+  console.log('Mock email login:', email);
+  return { id: 'mock-user', email, isLoggedIn: true };
 };
 
 export const loginWithGoogle = async () => {
-  const credentials = RealmWeb.Credentials.google();
-  try {
-    const user = await app.logIn(credentials);
-    return user;
-  } catch (err) {
-    console.error("Google login failed, falling back to anonymous", err);
-    return await loginAnonymous();
-  }
+  console.log('Mock Google login');
+  return { id: 'mock-user', isLoggedIn: true };
 };
-
-// Initialize with anonymous login
-loginAnonymous().catch(err => console.error("Initial login failed", err));
