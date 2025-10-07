@@ -1,22 +1,49 @@
-// Mock auth service for testing without Firebase
-export const app = {
-  currentUser: {
-    id: 'mock-user',
-    isLoggedIn: true
-  }
-};
+import { auth } from './firebaseConfig';
+import { signInAnonymously, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 
+// Current user state
+export const getCurrentUser = () => auth.currentUser;
+
+// Anonymous login
 export const loginAnonymous = async () => {
-  console.log('Mock anonymous login');
-  return { id: 'mock-user', isLoggedIn: true };
+  const userCredential = await signInAnonymously(auth);
+  return userCredential.user;
 };
 
+// Email/Password login
 export const loginWithEmail = async (email, password) => {
-  console.log('Mock email login:', email);
-  return { id: 'mock-user', email, isLoggedIn: true };
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  return userCredential.user;
 };
 
+// Register new user
+export const registerUser = async (email, password) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  return userCredential.user;
+};
+
+// Google login (placeholder - needs Google provider setup)
 export const loginWithGoogle = async () => {
-  console.log('Mock Google login');
-  return { id: 'mock-user', isLoggedIn: true };
+  // TODO: Implement Google OAuth
+  throw new Error('Google login not implemented yet');
+};
+
+// Logout
+export const logout = async () => {
+  await signOut(auth);
+};
+
+// Auth state listener
+export const onAuthChange = (callback) => {
+  return onAuthStateChanged(auth, callback);
+};
+
+// Legacy app object for compatibility
+export const app = {
+  get currentUser() {
+    return auth.currentUser ? {
+      id: auth.currentUser.uid,
+      isLoggedIn: true
+    } : null;
+  }
 };

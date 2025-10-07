@@ -4,7 +4,7 @@ import Routes from './Routes'
 import './App.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { AppContext } from './stateContext/indexContext.jsx'
-import { app } from './index'
+import { app, onAuthChange } from './index'
 import { SET_USER_ID } from './stateContext/types'
 import CustomToaster from './toaster/customToaster.jsx'
 
@@ -58,13 +58,23 @@ function App() {
   const userId = app.currentUser ? app.currentUser.id : ''
 
   useEffect(() => {
-    if (appState.userId === '' && app.currentUser) {
-      dispatch({
-        type: SET_USER_ID,
-        payload: userId
-      })
-    }
-  }, [appState.userId, userId, dispatch])
+    // Firebase auth state listener
+    const unsubscribe = onAuthChange((user) => {
+      if (user) {
+        dispatch({
+          type: SET_USER_ID,
+          payload: user.uid
+        });
+      } else {
+        dispatch({
+          type: SET_USER_ID,
+          payload: ''
+        });
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch])
 
 
 

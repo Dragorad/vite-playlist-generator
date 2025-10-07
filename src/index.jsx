@@ -8,7 +8,7 @@ import './auth/authService'
 const App = lazy(() => import('./App'))
 
 // Re-export auth functions and app instance
-export { app, loginAnonymous, loginWithEmail, loginWithGoogle } from './auth/authService'
+export { app, loginAnonymous, loginWithEmail, loginWithGoogle, onAuthChange } from './auth/authService'
 // Re-export API functions
 export { getNewPlayList, setTitleUrl, setTitleGenres, setTitleInstruments } from './api/playlistApi'
 
