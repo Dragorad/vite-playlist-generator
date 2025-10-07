@@ -26,3 +26,4 @@ node_modules
 .env.admin
 .env.user
 .env.development
+.env
