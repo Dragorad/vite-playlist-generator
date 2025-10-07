@@ -3,48 +3,30 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "Playlist Generator - Realm to Firebase + Express migration",
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "vite",
-    "dev:backend": "npm --prefix backend run dev",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "ionic:build": "npm run build",
-    "ionic:serve": "npm run dev"
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "cd backend && npm start",
+    "install:all": "npm install && cd frontend && npm install --legacy-peer-deps && cd ../backend && npm install",
+    "clean": "rm -rf frontend/node_modules backend/node_modules node_modules",
+    "test": "cd frontend && npm test",
+    "lint": "cd frontend && npm run lint",
+    "preview": "cd frontend && npm run preview"
   },
-  "dependencies": {
-    "@capacitor/android": "5.7.1",
-    "@capacitor/app": "5.0.7",
-    "@capacitor/cli": "5.7.0",
-    "@capacitor/core": "5.7.0",
-    "@capacitor/haptics": "5.0.7",
-    "@capacitor/keyboard": "5.0.8",
-    "@capacitor/status-bar": "5.0.7",
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.15.11",
-    "@mui/material": "^5.14.3",
-    "babytube": "^1.4.7",
-    "firebase": "^10.7.1",
-    "graphql": "^16.7.1",
-    "node-fetch": "^3.3.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1",
-    "react-player": "^2.16.0",
-    "react-router-dom": "^5.3.4",
-    "vercel": "^44.2.12"
-  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react-swc": "^3.3.2",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^7.0.2"
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
