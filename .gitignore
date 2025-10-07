@@ -6,10 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-build
+
 node_modules
 dist
 dist-ssr
+build
 *.local
 
 # Editor directories and files
@@ -22,8 +23,17 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-node_modules
-.env.admin
-.env.user
-.env.development
+
+# Environment files
 .env
+.env.local
+.env.development
+.env.production
+backend/.env
+backend/.env.local
+backend/.env.production
+
+# Credentials
+src/credential/AppId.js
+backend/.env.example
+.env.example
