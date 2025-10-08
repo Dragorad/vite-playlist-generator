@@ -9,8 +9,14 @@ import titlesRouter from './routes/titles.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://your-app.vercel.app',
+  'https://yourdomain.com'
+];
+
 app.use(cors({
-  origin: true,
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -18,7 +24,11 @@ app.use(cors({
 app.use(express.json());
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'OK' });
+  res.json({ 
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
 });
 
 app.use('/api/playlists', playlistsRouter);

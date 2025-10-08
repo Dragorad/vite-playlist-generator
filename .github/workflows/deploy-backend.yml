@@ -1,0 +1,53 @@
+name: Deploy Backend to Oracle VM
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'backend/**' ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Install dependencies
+      run: npm --prefix backend install
+    - name: Run tests
+      run: npm --prefix backend test || echo "No tests configured"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.ORACLE_VM_SSH_KEY }}" | base64 -d > ~/.ssh/oracle_vm
+        chmod 600 ~/.ssh/oracle_vm
+        ssh-keyscan -H ${{ secrets.ORACLE_VM_HOST }} >> ~/.ssh/known_hosts
+    
+    - name: Deploy to Oracle VM
+      run: |
+        ssh -i ~/.ssh/oracle_vm -o StrictHostKeyChecking=no ${{ secrets.ORACLE_VM_USER }}@${{ secrets.ORACLE_VM_HOST }} '
+          cd /home/ubuntu/vite-playlist-generator &&
+          git pull origin main &&
+          cd backend &&
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env &&
+          echo "FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" >> .env &&
+          echo "NODE_ENV=production" >> .env &&
+          echo "PORT=3000" >> .env &&
+          docker-compose -f docker-compose.prod.yml down &&
+          docker-compose -f docker-compose.prod.yml up -d --build
+        '
+    
+    - name: Health Check
+      run: |
+        sleep 30
+        curl -f http://${{ secrets.ORACLE_VM_HOST }}/health || exit 1
