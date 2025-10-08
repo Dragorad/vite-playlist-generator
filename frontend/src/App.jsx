@@ -4,7 +4,7 @@ import Routes from './Routes'
 import './App.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { AppContext } from './stateContext/indexContext.jsx'
-import { app, onAuthChange } from './index'
+import { app, onAuthChange, loginAnonymous } from './index'
 import { SET_USER_ID } from './stateContext/types'
 import CustomToaster from './toaster/customToaster.jsx'
 
@@ -66,6 +66,8 @@ function App() {
           payload: user.uid
         });
       } else {
+        // Auto-login anonymously if no user
+        loginAnonymous().catch(console.error);
         dispatch({
           type: SET_USER_ID,
           payload: ''

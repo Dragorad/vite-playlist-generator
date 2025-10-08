@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Playlist Generator - Realm to Firebase + Express migration",
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail 'npm run dev:frontend' 'npm run dev:backend'",
+    "dev": "concurrently --kill-others-on-fail \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
     "build": "cd frontend && npm run build",
