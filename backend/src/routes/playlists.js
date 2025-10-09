@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { getDB } from '../config/mongodb.js';
+import { optionalAuth } from '../middleware/auth.js';
 
 const router = Router();
 
-router.post('/generate', async (req, res) => {
+router.post('/generate', optionalAuth, async (req, res) => {
   try {
     const { bpm, delta, average_loudness, spectral_centroid, genresArr } = req.body;
     const db = getDB();

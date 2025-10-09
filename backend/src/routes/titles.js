@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { getDB } from '../config/mongodb.js';
+import { verifyToken } from '../middleware/auth.js';
 
 const router = Router();
 
-router.put('/genres', async (req, res) => {
+router.put('/genres', verifyToken, async (req, res) => {
   try {
     const { titleMBID, valuesArr } = req.body;
     const db = getDB();
@@ -25,7 +26,7 @@ router.put('/genres', async (req, res) => {
   }
 });
 
-router.put('/url', async (req, res) => {
+router.put('/url', verifyToken, async (req, res) => {
   try {
     const { titleMBID, url } = req.body;
     const db = getDB();
@@ -47,7 +48,7 @@ router.put('/url', async (req, res) => {
   }
 });
 
-router.put('/instruments', async (req, res) => {
+router.put('/instruments', verifyToken, async (req, res) => {
   try {
     const { titleMBID, valuesArr, propName } = req.body;
     const db = getDB();
