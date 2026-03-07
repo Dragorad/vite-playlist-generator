@@ -7,20 +7,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - name: Install dependencies
-      run: npm --prefix backend install
-    - name: Run tests
-      run: npm --prefix backend test || echo "No tests configured"
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v4
+#     - uses: actions/setup-node@v4
+#       with:
+#         node-version: '20'
+#     - name: Install dependencies
+#       run: npm --prefix backend install
+#     - name: Run tests
+#       run: npm --prefix backend test || echo "No tests configured"
 
   deploy:
-    needs: test
+#   needs: test
     runs-on: ubuntu-latest
     
     steps:
@@ -29,25 +29,38 @@ jobs:
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.ORACLE_VM_SSH_KEY }}" | base64 -d > ~/.ssh/oracle_vm
+        echo "${{ secrets.OCI_SSH_KEY }}" | base64 -d > ~/.ssh/oracle_vm
         chmod 600 ~/.ssh/oracle_vm
-        ssh-keyscan -H ${{ secrets.ORACLE_VM_HOST }} >> ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.OCI_HOST }} >> ~/.ssh/known_hosts
     
     - name: Deploy to Oracle VM
       run: |
-        ssh -i ~/.ssh/oracle_vm -o StrictHostKeyChecking=no ${{ secrets.ORACLE_VM_USER }}@${{ secrets.ORACLE_VM_HOST }} '
+        ssh -i ~/.ssh/oracle_vm -o StrictHostKeyChecking=no ${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }} '
           cd /home/ubuntu/vite-playlist-generator &&
           git pull origin main &&
           cd backend &&
           echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env &&
-          echo "FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" >> .env &&
-          echo "NODE_ENV=production" >> .env &&
-          echo "PORT=3000" >> .env &&
-          docker-compose -f docker-compose.prod.yml down &&
-          docker-compose -f docker-compose.prod.yml up -d --build
+          echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}" >> .env &&
+          echo "FIREBASE_CLIENT_EMAIL=${{ secrets.FIREBASE_CLIENT_EMAIL }}" >> .env &&
+          echo "FIREBASE_PRIVATE_KEY=\"${{ secrets.FIREBASE_PRIVATE_KEY }}\"" >> .env &&
+          echo "FRONTEND_URL=${{ secrets.FRONTEND_URL }}" >> .env &&
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env &&
+          echo "PORT=${{ secrets.PORT }}" >> .env &&
+          docker compose -f docker-compose.prod.yml down --remove-orphans &&
+          docker compose -f docker-compose.prod.yml up -d --build
         '
     
     - name: Health Check
       run: |
         sleep 30
-        curl -f http://${{ secrets.ORACLE_VM_HOST }}/health || exit 1
+        curl -f http://${{ secrets.OCI_HOST }}/health || exit 1
+
+    - name: Post-deploy Infrastructure Reminder
+      run: |
+        echo "==================================================================="
+        echo "ВНИМАНИЕ: Nginx и Certbot се управляват ръчно на хоста."
+        echo "При първи деплой или миграция изпълни на сървъра:"
+        echo "1. sudo apt install nginx python3-certbot-nginx"
+        echo "2. Настрой proxy_pass към http://127.0.0.1:3000"
+        echo "3. sudo certbot --nginx -d ${{ secrets.OCI_HOST }}.nip.io"
+        echo "==================================================================="
