@@ -36,7 +36,7 @@ jobs:
     - name: Deploy to Oracle VM
       run: |
         ssh -i ~/.ssh/oracle_vm -o StrictHostKeyChecking=no ${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }} '
-          cd /home/ubuntu/vite-playlist-generator &&
+          cd /home/ubuntu/playlist-backend &&
           git pull origin main &&
           cd backend &&
           echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > .env &&
