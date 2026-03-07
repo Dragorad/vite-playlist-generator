@@ -29,7 +29,7 @@ jobs:
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.OCI_SSH_KEY }}" | base64 -d > ~/.ssh/oracle_vm
+        echo "${{ secrets.OCI_SSH_KEY }}" > ~/.ssh/oracle_vm
         chmod 600 ~/.ssh/oracle_vm
         ssh-keyscan -H ${{ secrets.OCI_HOST }} >> ~/.ssh/known_hosts
     
