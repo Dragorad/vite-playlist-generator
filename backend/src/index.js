@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://your-app.vercel.app',
+ 'https://dragora-playlist-generator-vite.vercel.app',
   'https://yourdomain.com'
 ];
 
