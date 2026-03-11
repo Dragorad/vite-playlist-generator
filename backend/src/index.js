@@ -12,16 +12,21 @@ const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
   'http://localhost:5173',
   'https://dragora-playlist-generator-vite.vercel.app',
+  'https://dragora-api.duckdns.org',
   /^https:\/\/.*\.vercel\.app$/
 ];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.some(allowed => 
+    // Allow requests with no origin
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.some(allowed => 
       typeof allowed === 'string' ? allowed === origin : allowed.test(origin)
     )) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -29,6 +34,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 app.get('/health', (req, res) => {
