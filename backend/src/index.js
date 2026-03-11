@@ -11,12 +11,20 @@ const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   'http://localhost:5173',
- 'https://dragora-playlist-generator-vite.vercel.app',
-  'https://yourdomain.com'
+  'https://dragora-playlist-generator-vite.vercel.app',
+  /^https:\/\/.*\.vercel\.app$/
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.some(allowed => 
+      typeof allowed === 'string' ? allowed === origin : allowed.test(origin)
+    )) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
