@@ -2,7 +2,7 @@ name: Deploy Backend to Oracle VM
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, package-updates ]
     paths: [ 'backend/**' ]
   workflow_dispatch:
 
@@ -36,36 +36,31 @@ jobs:
     - name: Deploy to Oracle VM
       run: |
         ssh -i ~/.ssh/oracle_vm -o StrictHostKeyChecking=no ${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }} '
-          cd /home/ubuntu/playlist-backend &&
+          cd /home/ubuntu/playlist-backend/backend &&
           git fetch origin &&
-          git checkout realm-migration &&
-          git pull origin realm-migration &&
-          cd backend &&
+          git checkout ${{ github.ref_name }} &&
+          git pull origin ${{ github.ref_name }} &&
           cat > .env << EOF
 MONGODB_URI=${{ secrets.MONGODB_URI }}
 FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}
 FIREBASE_CLIENT_EMAIL=${{ secrets.FIREBASE_CLIENT_EMAIL }}
 FIREBASE_PRIVATE_KEY=${{ secrets.FIREBASE_PRIVATE_KEY }}
 FRONTEND_URL=${{ secrets.FRONTEND_URL }}
-NODE_ENV=${{ secrets.NODE_ENV }}
-PORT=${{ secrets.PORT }}
+NODE_ENV=${{ github.ref_name == 'main' && 'production' || 'development' }}
+PORT=3000
 EOF
-          
-          docker compose -f docker-compose.prod.yml down --remove-orphans &&
-          docker compose -f docker-compose.prod.yml up -d --build
+          npm install &&
+          pm2 restart backend &&
+          pm2 logs backend --lines 10
         '
     
-    # - name: Health Check
-    #   run: |
-    #     sleep 30
-    #     curl -f http://${{ secrets.OCI_HOST }}/health || exit 1
-
-    - name: Post-deploy Infrastructure Reminder
+    - name: Health Check
       run: |
-        echo "==================================================================="
-        echo "ВНИМАНИЕ: Nginx и Certbot се управляват ръчно на хоста."
-        echo "При първи деплой или миграция изпълни на сървъра:"
-        echo "1. sudo apt install nginx python3-certbot-nginx"
-        echo "2. Настрой proxy_pass към http://127.0.0.1:3000"
-        echo "3. sudo certbot --nginx -d ${{ secrets.OCI_HOST }}.nip.io"
-        echo "==================================================================="
+        sleep 10
+        curl -f https://dragora-api.duckdns.org/health || exit 1
+
+    - name: Deployment Success
+      run: |
+        echo "✅ Backend deployed successfully to OCI"
+        echo "🔗 API: https://dragora-api.duckdns.org/api"
+        echo "💚 Health: https://dragora-api.duckdns.org/health"
