@@ -2,7 +2,7 @@ name: Deploy Backend to Oracle VM
 
 on:
   push:
-    branches: [ main, package-updates ]
+    branches: [ main, packages-update ]
     paths: [ 'backend/**' ]
   workflow_dispatch:
 
